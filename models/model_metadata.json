@@ -1,0 +1,189 @@
+{
+  "best_model_name": "Linear SVM",
+  "categories": [
+    "Computer Networks",
+    "DAA / Algorithms",
+    "DBMS",
+    "Deep Learning",
+    "Flutter",
+    "General Academic Query",
+    "Machine Learning",
+    "Operating Systems",
+    "Python / Data Science"
+  ],
+  "results_summary": {
+    "Baseline (Majority Class)": {
+      "Accuracy": 0.1111111111111111,
+      "Precision (Macro)": 0.012345679012345678,
+      "Recall (Macro)": 0.1111111111111111,
+      "F1-Score (Macro)": 0.022222222222222223,
+      "F1-Score (Weighted)": 0.022222222222222223,
+      "CV_Mean_Accuracy": 0.11111111111111112,
+      "CV_Std_Accuracy": 1.3877787807814457e-17
+    },
+    "Naive Bayes (MultinomialNB)": {
+      "Accuracy": 0.8555555555555555,
+      "Precision (Macro)": 0.8655042488375821,
+      "Recall (Macro)": 0.8555555555555556,
+      "F1-Score (Macro)": 0.8547386985983477,
+      "F1-Score (Weighted)": 0.8547386985983476,
+      "CV_Mean_Accuracy": 0.875,
+      "CV_Std_Accuracy": 0.03167153958608715
+    },
+    "Logistic Regression": {
+      "Accuracy": 0.8333333333333334,
+      "Precision (Macro)": 0.8345509428842761,
+      "Recall (Macro)": 0.8333333333333335,
+      "F1-Score (Macro)": 0.8275245689119247,
+      "F1-Score (Weighted)": 0.8275245689119247,
+      "CV_Mean_Accuracy": 0.8638888888888889,
+      "CV_Std_Accuracy": 0.04598040377013015
+    },
+    "Linear SVM": {
+      "Accuracy": 0.8777777777777778,
+      "Precision (Macro)": 0.8788520121853455,
+      "Recall (Macro)": 0.8777777777777778,
+      "F1-Score (Macro)": 0.8746441266565106,
+      "F1-Score (Weighted)": 0.8746441266565106,
+      "CV_Mean_Accuracy": 0.8972222222222221,
+      "CV_Std_Accuracy": 0.020786985482077427
+    }
+  },
+  "classification_report": {
+    "Computer Networks": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1-score": 0.9,
+      "support": 10.0
+    },
+    "DAA / Algorithms": {
+      "precision": 0.8181818181818182,
+      "recall": 0.9,
+      "f1-score": 0.8571428571428571,
+      "support": 10.0
+    },
+    "DBMS": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1-score": 0.9,
+      "support": 10.0
+    },
+    "Deep Learning": {
+      "precision": 0.8571428571428571,
+      "recall": 0.6,
+      "f1-score": 0.7058823529411765,
+      "support": 10.0
+    },
+    "Flutter": {
+      "precision": 0.9090909090909091,
+      "recall": 1.0,
+      "f1-score": 0.9523809523809523,
+      "support": 10.0
+    },
+    "General Academic Query": {
+      "precision": 0.9090909090909091,
+      "recall": 1.0,
+      "f1-score": 0.9523809523809523,
+      "support": 10.0
+    },
+    "Machine Learning": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8,
+      "f1-score": 0.7619047619047619,
+      "support": 10.0
+    },
+    "Operating Systems": {
+      "precision": 0.8888888888888888,
+      "recall": 0.8,
+      "f1-score": 0.8421052631578947,
+      "support": 10.0
+    },
+    "Python / Data Science": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 10.0
+    },
+    "accuracy": 0.8777777777777778,
+    "macro avg": {
+      "precision": 0.8788520121853455,
+      "recall": 0.8777777777777778,
+      "f1-score": 0.8746441266565106,
+      "support": 90.0
+    },
+    "weighted avg": {
+      "precision": 0.8788520121853455,
+      "recall": 0.8777777777777778,
+      "f1-score": 0.8746441266565106,
+      "support": 90.0
+    }
+  },
+  "error_analysis": [
+    {
+      "Question": "Explain Bootstrapping bootloader BIOS UEFI MBR GPT loading kernel to RAM.",
+      "Expected": "Operating Systems",
+      "Predicted": "Flutter",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "What is perplexity metric for evaluating language models?",
+      "Expected": "Deep Learning",
+      "Predicted": "Machine Learning",
+      "Reason": "Shared ML/DL terminology (loss functions, optimization, neural nets)"
+    },
+    {
+      "Question": "Explain Error Detection Error Correction CRC Cyclic Redundancy Check Parity Check Hamming Code.",
+      "Expected": "Computer Networks",
+      "Predicted": "Machine Learning",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "What is the role of activation functions like ReLU, Sigmoid, and Softmax?",
+      "Expected": "Deep Learning",
+      "Predicted": "General Academic Query",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "How does U-Net architecture perform biomedical image segmentation?",
+      "Expected": "Deep Learning",
+      "Predicted": "Machine Learning",
+      "Reason": "Shared ML/DL terminology (loss functions, optimization, neural nets)"
+    },
+    {
+      "Question": "What is weight initialization strategy Xavier Glorot / He initialization?",
+      "Expected": "Deep Learning",
+      "Predicted": "Computer Networks",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "What is B+ Tree structure in file indexing storage?",
+      "Expected": "DBMS",
+      "Predicted": "DAA / Algorithms",
+      "Reason": "Shared indexing / data structure terminology (Trees, Graphs, Indexing)"
+    },
+    {
+      "Question": "What is Race Condition in multithreaded concurrent program execution?",
+      "Expected": "Operating Systems",
+      "Predicted": "DBMS",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "Explain K-Means clustering algorithm and how to choose optimal K with elbow method.",
+      "Expected": "Machine Learning",
+      "Predicted": "DAA / Algorithms",
+      "Reason": "Python Data Science library usage in ML tasks"
+    },
+    {
+      "Question": "Explain NP-Hard and NP-Complete problems P vs NP millennium problem Traveling Salesperson Problem.",
+      "Expected": "DAA / Algorithms",
+      "Predicted": "Operating Systems",
+      "Reason": "Keyword Overlap / Ambiguous Vocabulary"
+    },
+    {
+      "Question": "What is GridSearch vs RandomizedSearch for hyperparameter tuning?",
+      "Expected": "Machine Learning",
+      "Predicted": "Deep Learning",
+      "Reason": "Shared ML/DL terminology (loss functions, optimization, neural nets)"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+====================================================
+   EduIntent AI – Model Evaluation & Benchmark Summary   
+====================================================
+
+Best Performing Model: Linear SVM
+Test Accuracy: 87.78%
+Macro F1-Score: 0.8746
+5-Fold CV Mean Accuracy: 89.72%
+
+--- Benchmark Comparison Across Algorithms ---
+Model: Baseline (Majority Class)      | Accuracy:  11.11% | Macro F1: 0.0222 | 5-Fold CV:  11.11%
+Model: Naive Bayes (MultinomialNB)    | Accuracy:  85.56% | Macro F1: 0.8547 | 5-Fold CV:  87.50%
+Model: Logistic Regression            | Accuracy:  83.33% | Macro F1: 0.8275 | 5-Fold CV:  86.39%
+Model: Linear SVM                     | Accuracy:  87.78% | Macro F1: 0.8746 | 5-Fold CV:  89.72%
+
+--- Classification Report ---
+                        precision    recall  f1-score   support
+
+     Computer Networks       0.90      0.90      0.90        10
+      DAA / Algorithms       0.82      0.90      0.86        10
+                  DBMS       0.90      0.90      0.90        10
+         Deep Learning       0.86      0.60      0.71        10
+               Flutter       0.91      1.00      0.95        10
+General Academic Query       0.91      1.00      0.95        10
+      Machine Learning       0.73      0.80      0.76        10
+     Operating Systems       0.89      0.80      0.84        10
+ Python / Data Science       1.00      1.00      1.00        10
+
+              accuracy                           0.88        90
+             macro avg       0.88      0.88      0.87        90
+          weighted avg       0.88      0.88      0.87        90
+
+--- Qualitative Error Analysis (Misclassified Test Cases) ---
+Question: 'Explain Bootstrapping bootloader BIOS UEFI MBR GPT loading kernel to RAM.'
+  -> Expected: Operating Systems | Predicted: Flutter
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'What is perplexity metric for evaluating language models?'
+  -> Expected: Deep Learning | Predicted: Machine Learning
+  -> Reason: Shared ML/DL terminology (loss functions, optimization, neural nets)
+
+Question: 'Explain Error Detection Error Correction CRC Cyclic Redundancy Check Parity Check Hamming Code.'
+  -> Expected: Computer Networks | Predicted: Machine Learning
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'What is the role of activation functions like ReLU, Sigmoid, and Softmax?'
+  -> Expected: Deep Learning | Predicted: General Academic Query
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'How does U-Net architecture perform biomedical image segmentation?'
+  -> Expected: Deep Learning | Predicted: Machine Learning
+  -> Reason: Shared ML/DL terminology (loss functions, optimization, neural nets)
+
+Question: 'What is weight initialization strategy Xavier Glorot / He initialization?'
+  -> Expected: Deep Learning | Predicted: Computer Networks
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'What is B+ Tree structure in file indexing storage?'
+  -> Expected: DBMS | Predicted: DAA / Algorithms
+  -> Reason: Shared indexing / data structure terminology (Trees, Graphs, Indexing)
+
+Question: 'What is Race Condition in multithreaded concurrent program execution?'
+  -> Expected: Operating Systems | Predicted: DBMS
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'Explain K-Means clustering algorithm and how to choose optimal K with elbow method.'
+  -> Expected: Machine Learning | Predicted: DAA / Algorithms
+  -> Reason: Python Data Science library usage in ML tasks
+
+Question: 'Explain NP-Hard and NP-Complete problems P vs NP millennium problem Traveling Salesperson Problem.'
+  -> Expected: DAA / Algorithms | Predicted: Operating Systems
+  -> Reason: Keyword Overlap / Ambiguous Vocabulary
+
+Question: 'What is GridSearch vs RandomizedSearch for hyperparameter tuning?'
+  -> Expected: Machine Learning | Predicted: Deep Learning
+  -> Reason: Shared ML/DL terminology (loss functions, optimization, neural nets)
+
