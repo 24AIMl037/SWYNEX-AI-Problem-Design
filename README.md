@@ -48,12 +48,9 @@ The proposed solution is **EduIntent AI**, an intelligent text-classification sy
 
 ---
 
-### Gujarati (ગુજરાતી)
-Students Python, Data Science, Machine Learning, Deep Learning, DBMS, Operating Systems, Computer Networks, Flutter, DAA (Algorithms) અને General Academic Query જેવા subjects અંગે દરરોજ ઘણી queries પૂછે છે.
 
-જો queries ની સંખ્યા વધારે હોય, તો દરેક query ને manually યોગ્ય subject/category માં મૂકવામાં વધારે સમય લાગે છે.
 
-આ problem ના ઉકેલ માટે અમે **EduIntent AI – Student Query Classification System** બનાવવાનો પ્રસ્તાવ રાખીએ છીએ. System student ની query ને analyze કરીને તેને automatically યોગ્ય category, confidence score, અને key terms આપશે.
+
 
 ---
 
