@@ -1,0 +1,20 @@
+EduIntent AI - Model Classification Report (Unseen Test Set)
+Generated at: 2026-10-19 22:24:32
+Model: Logistic Regression with TF-IDF Vectorizer
+Test Accuracy: 84.44%
+
+                        precision    recall  f1-score   support
+
+     Computer Networks     0.9000    0.9000    0.9000        10
+      DAA / Algorithms     0.8000    0.8000    0.8000        10
+                  DBMS     0.8000    0.8000    0.8000        10
+         Deep Learning     0.8750    0.7000    0.7778        10
+               Flutter     1.0000    1.0000    1.0000        10
+General Academic Query     0.9091    1.0000    0.9524        10
+      Machine Learning     0.6000    0.6000    0.6000        10
+     Operating Systems     0.8889    0.8000    0.8421        10
+ Python / Data Science     0.8333    1.0000    0.9091        10
+
+              accuracy                         0.8444        90
+             macro avg     0.8451    0.8444    0.8424        90
+          weighted avg     0.8451    0.8444    0.8424        90

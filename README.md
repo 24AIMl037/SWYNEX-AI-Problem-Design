@@ -1,7 +1,7 @@
 # EduIntent AI – Intelligent Student Query Classification System
 
-> **Task 1 – AI Problem Design & Practical Implementation**  
-> *A practical, measurable, explainable end-to-end AI project demonstrating real-world problem formulation, dataset design, baseline benchmarking, TF-IDF machine learning classification, model evaluation, uncertainty warnings, ambiguity detection, and an interactive web demo.*
+> **SWYNEX Technologies AI Internship — Task 1 (AI Problem Design) & Task 2 (Model Integration)**  
+> *A unified, production-grade end-to-end AI project demonstrating real-world problem formulation, dataset design, baseline benchmarking, TF-IDF machine learning classification, model evaluation, uncertainty warnings, ambiguity detection, explainable AI, and an interactive unified web dashboard.*
 
 ---
 
@@ -9,11 +9,12 @@
 
 * **Project Name:** EduIntent AI – Intelligent Student Query Classification System
 * **Domain:** Natural Language Processing (NLP) / Academic Support Automation
-* **AI Task:** Multi-Class Text Intent Classification
+* **AI Task:** Multi-Class Text Intent Classification (Task 1 & Task 2)
 * **Dataset Size:** 450 balanced hand-curated student questions across 9 categories.
 * **Target Accuracy:** $\ge 85\%$ *(Achieved: **87.78%**)*
 * **Target Macro F1-Score:** $\ge 0.80$ *(Achieved: **0.8746**)*
 * **5-Fold Cross-Validation Accuracy:** **89.72% ($\pm 0.02$)**
+* **Inference Engine:** Calibrated Linear SVM + TF-IDF with XAI & Guardrails
 
 ---
 
@@ -146,25 +147,22 @@ SWYNEX-AI-Problem-Design/
 
 ---
 
-## 7. How to Run locally
+## 7. How to Run Locally (Single Command for Task 1 + Task 2)
 
 ### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Train Models & Export Results
+### 2. Train Models & Export Results (Optional — Pretrained Models Included)
 ```bash
 python src/train.py
 ```
 
-### 3. Run Inference Test with Unique Features
-```bash
-python src/predict.py
-```
-
-### 4. Launch Interactive Streamlit Web Demo
+### 3. Launch the Unified Web Application (Task 1 & Task 2)
 ```bash
 streamlit run app.py
 ```
-*Access the web app in your browser at `http://localhost:8501`.*
+> 🌐 **Opens in your browser at `http://localhost:8501`**  
+> This unified application contains both **Task 1** (Problem Design, Dataset & KPI Analytics) and **Task 2** (Live Trained ML Model Inference, Confidence Meter, Ambiguity Warnings, and Evaluation Metrics).
+

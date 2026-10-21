@@ -34,7 +34,7 @@ from predict import EduIntentPredictor
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="EduIntent AI — SWYNEX Task 1",
+    page_title="EduIntent AI — SWYNEX Task 1 & Task 2",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -241,9 +241,9 @@ CAT_KEYWORDS = {
 }
 
 # ─── Load Resources ───────────────────────────────────────────────────────────
-@st.cache_resource(show_spinner=False)
-def get_predictor():
-    return EduIntentPredictor()
+@st.cache_resource(show_spinner=False)
+def get_predictor():
+    return EduIntentPredictor()
 
 @st.cache_data(show_spinner=False)
 def get_metadata():
@@ -411,7 +411,7 @@ with st.sidebar:
             color:#fff;font-weight:900;font-size:22px;box-shadow:0 4px 14px rgba(99,102,241,.4);">E</div>
         <div>
             <div style="font-size:1.05rem;font-weight:800;color:{TEXT};">EduIntent AI</div>
-            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · AI Problem Design</div>
+            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · Task 1 & Task 2</div>
         </div>
     </div>
     <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.5px;color:#475569;
@@ -465,9 +465,9 @@ with st.sidebar:
 # ═══════════════════════════════════════════════════════════════════════════════
 tb1, tb2, tb3 = st.columns([4, 1.2, 0.8])
 with tb1:
-    st.markdown(f'<div class="topbar-title">EduIntent AI — SWYNEX Task 1</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="topbar-title">EduIntent AI — SWYNEX Task 1 & Task 2</div>', unsafe_allow_html=True)
 with tb2:
-    st.markdown('<div class="pill-badge" style="text-align:center;">Task 1 · Prototype</div>', unsafe_allow_html=True)
+    st.markdown('<div class="pill-badge" style="text-align:center;">Task 1 + 2 · Unified</div>', unsafe_allow_html=True)
 with tb3:
     st.markdown(f'<div class="pill-badge" style="text-align:center;color:{EMERALD};">🟢 AI Ready</div>', unsafe_allow_html=True)
 st.markdown(f'<hr style="border:none;border-top:1px solid {BORDER};margin:0 0 22px 0;">', unsafe_allow_html=True)
@@ -479,12 +479,13 @@ if nav == "🏠 Overview":
     col_left, col_right = st.columns([2.4, 1])
 
     with col_left:
-        st.markdown('<div class="hero-kicker">AI PROBLEM DESIGN · SWYNEX INTERNSHIP TASK 1</div>', unsafe_allow_html=True)
+        st.markdown('<div class="hero-kicker">AI PROBLEM DESIGN & MODEL INTEGRATION · SWYNEX TASK 1 + TASK 2</div>', unsafe_allow_html=True)
         st.markdown('<div class="hero-h1">Student Query<br>Intelligence</div>', unsafe_allow_html=True)
         st.markdown(f'''<div class="hero-sub">
         EduIntent AI automatically classifies student academic questions into 9 subject categories
-        using NLP & Calibrated Linear SVM. Powered by Explainable AI, ambiguity detection,
-        uncertainty guardrails, and Gujarati / English code-mixing support.
+        using NLP & Calibrated Linear SVM. <strong>Task 1</strong> covers AI Problem Design, dataset architecture,
+        and evaluation planning. <strong>Task 2</strong> integrates the real trained ML model with live predictions,
+        confidence scores, low-confidence warnings, and explainable AI.
         </div>''', unsafe_allow_html=True)
 
         f1, f2, f3, f4 = st.columns(4)
@@ -1066,27 +1067,48 @@ elif nav == "🤖 Model & Evaluation":
 # ❽  DOCUMENTATION
 # ═══════════════════════════════════════════════════════════════════════════════
 elif nav == "📚 Documentation":
-    st.markdown("### 📚 Project Documentation & Repository Structure")
+    st.markdown("### 📚 Project Documentation — Task 1 & Task 2")
+
+    st.markdown(f"""
+    <div class="edu-card" style="border-left:4px solid {INDIGO};">
+        <div style="font-size:1.1rem;font-weight:800;color:{TEXT};margin-bottom:8px;">📋 What This Project Covers</div>
+        <div style="display:flex;gap:24px;">
+            <div style="flex:1;">
+                <div style="font-weight:700;color:{SKY};margin-bottom:4px;">Task 1 — AI Problem Design</div>
+                <div style="font-size:0.88rem;color:{MUTED};line-height:1.6;">Problem statement, target users, dataset design (450 queries × 9 categories), AI workflow architecture, constraints, evaluation plan, and full benchmark analysis.</div>
+            </div>
+            <div style="flex:1;">
+                <div style="font-weight:700;color:{EMERALD};margin-bottom:4px;">Task 2 — Model Integration</div>
+                <div style="font-size:0.88rem;color:{MUTED};line-height:1.6;">Real trained Calibrated Linear SVM model (87.78% accuracy), live predictions with confidence scores, low-confidence warnings, explainable AI term attribution, and example inputs/outputs.</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     col_doc1, col_doc2 = st.columns([1.2, 1])
     with col_doc1:
         st.markdown("#### 📁 GitHub Folder Tree")
         st.code("""SWYNEX-AI-Problem-Design/
-├── app.py                        # Premium Streamlit dashboard (10 unique features)
+├── app.py                        # Unified Streamlit dashboard (Task 1 + Task 2)
 ├── create_dataset.py             # Dataset creation (450 balanced queries)
 ├── create_notebook.py            # Jupyter notebook auto-generator
 ├── export_pdf_report.py          # PDF executive report generator
 ├── EduIntent_AI_Task1_Problem_Design.pdf  # Executive PDF report
-├── README.md                     # Full project documentation
+├── README.md                     # Full project documentation (both tasks)
 ├── requirements.txt              # Python dependencies
 ├── .streamlit/
 │   └── config.toml               # Streamlit dark theme config
 ├── dataset/
 │   └── student_queries.csv       # 450 hand-curated queries (9 classes)
 ├── models/
-│   ├── best_model.pkl            # Calibrated Linear SVM model
-│   ├── tfidf_vectorizer.pkl      # Trained TF-IDF vectorizer
-│   └── model_metadata.json       # Metrics, categories, error analysis
+│   ├── best_model.pkl            # [Task 2] Trained Calibrated Linear SVM model
+│   ├── tfidf_vectorizer.pkl      # [Task 2] Trained TF-IDF vectorizer
+│   └── model_metadata.json       # [Task 2] Metrics, categories, error analysis
+├── task2_integration/            # Task 2 standalone reference implementation
+│   ├── app.py                    #   Standalone Task 2 Streamlit UI
+│   ├── models/                   #   Task 2 model artifacts (Logistic Regression)
+│   ├── src/                      #   Task 2 preprocessing & prediction
+│   └── README.md                 #   Task 2 specific documentation
 ├── notebooks/
 │   └── EduIntent_AI_Problem_Design.ipynb
 ├── reports/
@@ -1096,7 +1118,7 @@ elif nav == "📚 Documentation":
 │   └── evaluation.txt            # Text summary of evaluation
 └── src/
     ├── model.py                  # Model factory helpers
-    ├── predict.py                # EduIntentPredictor class
+    ├── predict.py                # [Task 2] EduIntentPredictor inference engine
     ├── preprocessing.py          # Text preprocessing pipeline
     └── train.py                  # Training & benchmarking pipeline""", language="text")
 
@@ -1119,7 +1141,7 @@ elif nav == "📚 Documentation":
                 <span style="color:{MUTED};font-size:0.85rem;"> — {role}</span>
             </div>""", unsafe_allow_html=True)
 
-        st.markdown("#### 🚀 Quick Start")
+        st.markdown("#### 🚀 Quick Start (Single Command)")
         st.code("""# 1. Install dependencies
 pip install -r requirements.txt
 
@@ -1129,20 +1151,21 @@ python create_dataset.py
 # 3. Train all models & save artifacts
 python src/train.py
 
-# 4. Launch the dashboard
+# 4. Launch the unified Task 1 + Task 2 dashboard
 streamlit run app.py
 
-# 5. Export PDF report
+# 5. (Optional) Export PDF report
 python export_pdf_report.py""", language="bash")
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ❾  SUBMISSION CHECKLIST
 # ═══════════════════════════════════════════════════════════════════════════════
 elif nav == "✅ Submission Checklist":
-    st.markdown("### ✅ Task 1 SWYNEX Submission Verification Checklist")
-    st.markdown(f'<div style="color:{MUTED};margin-bottom:22px;">Comprehensive check of all Task 1 AI Problem Design & Practical Implementation requirements.</div>', unsafe_allow_html=True)
+    st.markdown("### ✅ SWYNEX Task 1 & Task 2 — Submission Verification Checklist")
+    st.markdown(f'<div style="color:{MUTED};margin-bottom:22px;">Comprehensive check of all AI Problem Design (Task 1) and Model Integration (Task 2) requirements.</div>', unsafe_allow_html=True)
 
-    checks = [
+    st.markdown(f'<div style="font-size:0.72rem;font-weight:800;letter-spacing:1.5px;color:{INDIGO};text-transform:uppercase;margin-bottom:10px;">TASK 1 — AI PROBLEM DESIGN</div>', unsafe_allow_html=True)
+    checks_t1 = [
         ("✅", EMERALD, "Problem Statement formulated in English & Gujarati"),
         ("✅", EMERALD, "450 balanced hand-curated queries (50 × 9 categories)"),
         ("✅", EMERALD, "Majority Class Baseline benchmarked (Accuracy: 11.11%, F1: 0.022)"),
@@ -1152,24 +1175,13 @@ elif nav == "✅ Submission Checklist":
         ("✅", EMERALD, "Target Accuracy ≥ 85% → Achieved 87.78%"),
         ("✅", EMERALD, "Target Macro F1 ≥ 0.80 → Achieved 0.8746"),
         ("✅", EMERALD, "5-Fold Cross-Validation performed (89.72% ± 0.02)"),
-        ("✅", EMERALD, "Explainable AI (XAI) — TF-IDF term attribution implemented"),
-        ("✅", EMERALD, "Ambiguity Detection for multi-subject overlap queries"),
-        ("✅", EMERALD, "Low-Confidence Guardrails (< 45% threshold)"),
-        ("✅", EMERALD, "Gujarati / English / Hinglish code-mixing detection"),
-        ("✅", EMERALD, "Confidence Gauge Meter (Plotly interactive)"),
-        ("✅", EMERALD, "All-Category Confidence Radar Chart implemented"),
-        ("✅", EMERALD, "Query Complexity Analyzer (vocab richness, tech density, grade)"),
-        ("✅", EMERALD, "Smart Similar Query Suggestions from dataset"),
-        ("✅", EMERALD, "Category Deep-Dive with WordCloud per academic subject"),
-        ("✅", EMERALD, "Batch CSV Uploader with full prediction results + download"),
-        ("✅", EMERALD, "Session Analytics — live stats in sidebar"),
-        ("✅", EMERALD, "Dark / Light Theme Toggle"),
+        ("✅", EMERALD, "AI system architecture flow documented"),
+        ("✅", EMERALD, "Target users identified (students, TAs, help desks, EdTech)"),
+        ("✅", EMERALD, "Qualitative error analysis with root-cause explanations"),
         ("✅", EMERALD, "Executive PDF Report generated"),
         ("✅", EMERALD, "Jupyter Notebook demonstration created"),
-        ("✅", EMERALD, "Premium multi-tab Streamlit dashboard with SWYNEX branding"),
     ]
-
-    for icon, color, label in checks:
+    for icon, color, label in checks_t1:
         st.markdown(f"""
         <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:{CARD};
             border-radius:10px;border-left:3px solid {color};margin-bottom:6px;">
@@ -1178,18 +1190,48 @@ elif nav == "✅ Submission Checklist":
         </div>""", unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(f'<div style="font-size:0.72rem;font-weight:800;letter-spacing:1.5px;color:{VIOLET};text-transform:uppercase;margin-bottom:10px;">TASK 2 — MODEL INTEGRATION</div>', unsafe_allow_html=True)
+    checks_t2 = [
+        ("✅", EMERALD, "Real trained ML model (Calibrated Linear SVM) integrated — not simulated"),
+        ("✅", EMERALD, "Live predictions via EduIntentPredictor class with model artifacts"),
+        ("✅", EMERALD, "Confidence scores displayed per prediction (gauge + progress bar)"),
+        ("✅", EMERALD, "Low-Confidence Uncertainty Warning (< 45% threshold)"),
+        ("✅", EMERALD, "Ambiguity Detection for multi-subject overlap queries"),
+        ("✅", EMERALD, "Explainable AI (XAI) — TF-IDF term attribution on every prediction"),
+        ("✅", EMERALD, "Top-3 category probability distribution shown"),
+        ("✅", EMERALD, "All-Category Confidence Radar Chart"),
+        ("✅", EMERALD, "Query Complexity Analyzer (vocab richness, tech density, grade)"),
+        ("✅", EMERALD, "8 preset edge-case example inputs with real model outputs"),
+        ("✅", EMERALD, "Smart Similar Query Suggestions from dataset"),
+        ("✅", EMERALD, "Batch CSV classification with downloadable results"),
+        ("✅", EMERALD, "Actual accuracy / precision / recall / F1-score after training"),
+        ("✅", EMERALD, "Per-category confusion matrix and benchmark comparison charts"),
+        ("✅", EMERALD, "Session analytics — live stats in sidebar"),
+        ("✅", EMERALD, "Dark / Light Theme Toggle"),
+        ("✅", EMERALD, "Premium multi-tab Streamlit dashboard with SWYNEX branding"),
+    ]
+    for icon, color, label in checks_t2:
+        st.markdown(f"""
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:{CARD};
+            border-radius:10px;border-left:3px solid {color};margin-bottom:6px;">
+            <span style="font-size:1.1rem;">{icon}</span>
+            <span style="font-size:0.93rem;color:{TEXT};font-weight:600;">{label}</span>
+        </div>""", unsafe_allow_html=True)
+
+    total = len(checks_t1) + len(checks_t2)
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f"""
     <div style="background:linear-gradient(135deg,#064e3b,#065f46);border:1px solid #10b981;
         border-radius:16px;padding:24px 28px;text-align:center;margin-top:10px;">
         <div style="font-size:2rem;margin-bottom:8px;">🎉</div>
-        <div style="font-size:1.3rem;font-weight:900;color:#ffffff;">All {len(checks)} SWYNEX Task 1 Requirements Satisfied!</div>
-        <div style="color:#6ee7b7;margin-top:6px;font-size:0.95rem;">Project ready for professional SWYNEX internship submission.</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#ffffff;">All {total} SWYNEX Task 1 + Task 2 Requirements Satisfied!</div>
+        <div style="color:#6ee7b7;margin-top:6px;font-size:0.95rem;">Unified application ready for professional SWYNEX internship submission.</div>
     </div>""", unsafe_allow_html=True)
 
 # ─── Footer ───────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div style="margin-top:36px;padding-top:16px;border-top:1px solid {BORDER};
     text-align:center;color:{MUTED};font-size:0.8rem;">
-    EduIntent AI &nbsp;·&nbsp; SWYNEX AI Problem Design Task 1 &nbsp;·&nbsp;
+    EduIntent AI &nbsp;·&nbsp; SWYNEX Task 1 (AI Problem Design) + Task 2 (Model Integration) &nbsp;·&nbsp;
     Built with Python · Scikit-Learn · Streamlit · Plotly
 </div>""", unsafe_allow_html=True)

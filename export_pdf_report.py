@@ -83,22 +83,21 @@ def generate_pdf():
     story = []
 
     # Title & Header
-    story.append(Paragraph("Task 1 – AI Problem Design Document", title_style))
-    story.append(Paragraph("Project: EduIntent AI – Intelligent Student Query Classification System", subtitle_style))
+    story.append(Paragraph("SWYNEX AI Internship — Task 1 & Task 2 Executive Report", title_style))
+    story.append(Paragraph("Project: EduIntent AI – Problem Design & Real-Time Model Integration", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#1e3a8a'), spaceAfter=10))
 
     # 1. Executive Summary Table
     summary_data = [
         [Paragraph("<b>Parameter</b>", body_style), Paragraph("<b>Specification / Result</b>", body_style)],
-        [Paragraph("<b>Project Name</b>", body_style), Paragraph("EduIntent AI – Student Query Intent Classifier", body_style)],
-        [Paragraph("<b>AI Task</b>", body_style), Paragraph("Multi-Class Text Intent Classification", body_style)],
-        [Paragraph("<b>Unique Features</b>", body_style), Paragraph("Explainable AI (XAI), Ambiguity Detection, Low Confidence Guardrails, Code-Mixed Language Support", body_style)],
-        [Paragraph("<b>Academic Categories</b>", body_style), Paragraph("9 Core Computer Science & Administrative Subjects", body_style)],
-        [Paragraph("<b>Dataset Size</b>", body_style), Paragraph("450 Hand-curated Questions (50 per category)", body_style)],
-        [Paragraph("<b>Best Algorithm</b>", body_style), Paragraph("Calibrated Linear SVM (TF-IDF Unigrams + Bigrams)", body_style)],
+        [Paragraph("<b>Project Scope</b>", body_style), Paragraph("<b>Task 1 (AI Problem Design) + Task 2 (Model Integration)</b>", body_style)],
+        [Paragraph("<b>AI Task</b>", body_style), Paragraph("Multi-Class Text Intent Classification (9 Subjects)", body_style)],
+        [Paragraph("<b>Integrated Model</b>", body_style), Paragraph("Calibrated Linear SVM (TF-IDF Unigrams + Bigrams)", body_style)],
         [Paragraph("<b>Test Accuracy</b>", body_style), Paragraph("<b>87.78%</b> (Target: ≥ 85%)", body_style)],
         [Paragraph("<b>Macro F1-Score</b>", body_style), Paragraph("<b>0.8746</b> (Target: ≥ 0.80)", body_style)],
-        [Paragraph("<b>5-Fold CV Accuracy</b>", body_style), Paragraph("<b>89.72%</b> (± 0.02)", body_style)]
+        [Paragraph("<b>Cross-Validation</b>", body_style), Paragraph("<b>89.72%</b> (± 0.02) across 5 Stratified Folds", body_style)],
+        [Paragraph("<b>Unique Guardrails</b>", body_style), Paragraph("XAI Term Attribution, Ambiguity Overlap Alert, Low-Confidence Warning (<45%)", body_style)],
+        [Paragraph("<b>Web Application</b>", body_style), Paragraph("Interactive Streamlit UI (Dark/Light Mode, Gauge Meter, Batch CSV)", body_style)],
     ]
 
     t_summary = Table(summary_data, colWidths=[140, 390])
