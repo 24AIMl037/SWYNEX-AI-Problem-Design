@@ -45,6 +45,12 @@ from announcement_ui import (
     render_example_library,
     render_task3_documentation
 )
+import task4_ui
+try:
+    importlib.reload(task4_ui)
+except Exception:
+    pass
+from task4_ui import render_task4_showcase
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -444,8 +450,8 @@ with st.sidebar:
             border-radius:12px;display:flex;align-items:center;justify-content:center;
             color:#fff;font-weight:900;font-size:22px;box-shadow:0 4px 14px rgba(99,102,241,.4);">📢</div>
         <div>
-            <div style="font-size:1.02rem;font-weight:800;color:{TEXT};">Announcement AI</div>
-            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · Tasks 1, 2 & 3</div>
+            <div style="font-size:1.02rem;font-weight:800;color:{TEXT};">Academic AI Suite</div>
+            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · Tasks 1, 2, 3 & 4</div>
         </div>
     </div>
     <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.5px;color:#475569;
@@ -453,6 +459,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     nav_items = [
+        "🎓 Task 4: Final AI Application",
         "📢 Smart Analyzer",
         "🧪 Evaluation Lab",
         "📋 Example Library",
@@ -468,7 +475,7 @@ with st.sidebar:
         "✅ Submission Checklist",
     ]
     if st.session_state["active_nav"] not in nav_items:
-        st.session_state["active_nav"] = "📢 Smart Analyzer"
+        st.session_state["active_nav"] = "🎓 Task 4: Final AI Application"
     nav = st.radio("nav", nav_items, index=nav_items.index(st.session_state["active_nav"]))
     st.session_state["active_nav"] = nav
 
@@ -513,9 +520,15 @@ with tb3:
 st.markdown(f'<hr style="border:none;border-top:1px solid {BORDER};margin:0 0 22px 0;">', unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# 🎓  TASK 4: FINAL CAPSTONE AI APPLICATION SHOWCASE
+# ═══════════════════════════════════════════════════════════════════════════════
+if nav == "🎓 Task 4: Final AI Application":
+    render_task4_showcase()
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # 📢  TASK 3: SMART ANNOUNCEMENT ANALYZER & EVALUATION LAB
 # ═══════════════════════════════════════════════════════════════════════════════
-if nav == "📢 Smart Analyzer":
+elif nav == "📢 Smart Analyzer":
     try:
         render_smart_analyzer(ann_analyzer)
     except TypeError:
