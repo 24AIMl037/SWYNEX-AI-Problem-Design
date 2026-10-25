@@ -1,0 +1,180 @@
+{
+  "project": "Student Announcement Intelligence System",
+  "task": "SWYNEX AI Internship - Task 3: Smart Announcement Analyzer",
+  "primary_model": "Logistic Regression",
+  "feature_extraction": "TF-IDF Vectorizer (ngram=(1,2), sublinear_tf=True, max_features=4000)",
+  "categories": [
+    "Assignments",
+    "Events",
+    "Exams",
+    "Fees",
+    "General",
+    "Holidays",
+    "Placements"
+  ],
+  "num_categories": 7,
+  "total_dataset_samples": 420,
+  "train_samples": 336,
+  "test_samples": 84,
+  "vocabulary_size": 4000,
+  "benchmark_results": {
+    "Baseline (Majority Class)": {
+      "Accuracy": 0.14285714285714285,
+      "Precision (Macro)": 0.02040816326530612,
+      "Recall (Macro)": 0.14285714285714285,
+      "F1-Score (Macro)": 0.03571428571428571,
+      "F1-Score (Weighted)": 0.03571428571428571,
+      "CV_Mean_Accuracy": 0.13393327480245829,
+      "CV_Std_Accuracy": 0.0007901668129938534
+    },
+    "Multinomial Naive Bayes": {
+      "Accuracy": 0.7619047619047619,
+      "Precision (Macro)": 0.759090909090909,
+      "Recall (Macro)": 0.761904761904762,
+      "F1-Score (Macro)": 0.7568363313704928,
+      "F1-Score (Weighted)": 0.7568363313704929,
+      "CV_Mean_Accuracy": 0.7647936786654961,
+      "CV_Std_Accuracy": 0.04091571922301026
+    },
+    "Logistic Regression": {
+      "Accuracy": 0.8214285714285714,
+      "Precision (Macro)": 0.8648423005565863,
+      "Recall (Macro)": 0.8214285714285714,
+      "F1-Score (Macro)": 0.8273696024472422,
+      "F1-Score (Weighted)": 0.8273696024472421,
+      "CV_Mean_Accuracy": 0.8571115013169447,
+      "CV_Std_Accuracy": 0.055594896231389225
+    },
+    "Linear SVM (Calibrated)": {
+      "Accuracy": 0.7738095238095238,
+      "Precision (Macro)": 0.8145021645021646,
+      "Recall (Macro)": 0.7738095238095237,
+      "F1-Score (Macro)": 0.7760388564736391,
+      "F1-Score (Weighted)": 0.776038856473639,
+      "CV_Mean_Accuracy": 0.8421861281826164,
+      "CV_Std_Accuracy": 0.05805089264895027
+    }
+  },
+  "classification_report": {
+    "Assignments": {
+      "precision": 0.8181818181818182,
+      "recall": 0.75,
+      "f1-score": 0.782608695652174,
+      "support": 12.0
+    },
+    "Events": {
+      "precision": 0.7857142857142857,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.8461538461538461,
+      "support": 12.0
+    },
+    "Exams": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 12.0
+    },
+    "Fees": {
+      "precision": 0.9,
+      "recall": 0.75,
+      "f1-score": 0.8181818181818182,
+      "support": 12.0
+    },
+    "General": {
+      "precision": 0.55,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.6875,
+      "support": 12.0
+    },
+    "Holidays": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 12.0
+    },
+    "Placements": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1-score": 0.8571428571428571,
+      "support": 12.0
+    },
+    "accuracy": 0.8214285714285714,
+    "macro avg": {
+      "precision": 0.8648423005565863,
+      "recall": 0.8214285714285714,
+      "f1-score": 0.8273696024472422,
+      "support": 84.0
+    },
+    "weighted avg": {
+      "precision": 0.8648423005565863,
+      "recall": 0.8214285714285714,
+      "f1-score": 0.8273696024472421,
+      "support": 84.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      9,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      11,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      8,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      9,
+      3,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      11,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      12,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      2,
+      0,
+      9
+    ]
+  ]
+}

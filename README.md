@@ -1,20 +1,24 @@
-# EduIntent AI – Intelligent Student Query Classification System
+# SWYNEX AI — Academic & Campus Intelligence Suite
 
-> **SWYNEX Technologies AI Internship — Task 1 (AI Problem Design) & Task 2 (Model Integration)**  
-> *A unified, production-grade end-to-end AI project demonstrating real-world problem formulation, dataset design, baseline benchmarking, TF-IDF machine learning classification, model evaluation, uncertainty warnings, ambiguity detection, explainable AI, and an interactive unified web dashboard.*
+> **SWYNEX Technologies AI Internship — Task 1 (AI Problem Design), Task 2 (Model Integration), & Task 3 (Student Announcement Intelligence System)**  
+> *A unified, production-grade end-to-end AI project suite demonstrating real-world problem formulation, dataset design, baseline benchmarking, TF-IDF machine learning classification, model evaluation, uncertainty guardrails, ambiguity detection, explainable AI, entity extraction, anomaly warnings, and a unified interactive web application.*
 
 ---
 
 ## 📌 Executive Summary
 
-* **Project Name:** EduIntent AI – Intelligent Student Query Classification System
-* **Domain:** Natural Language Processing (NLP) / Academic Support Automation
-* **AI Task:** Multi-Class Text Intent Classification (Task 1 & Task 2)
-* **Dataset Size:** 450 balanced hand-curated student questions across 9 categories.
-* **Target Accuracy:** $\ge 85\%$ *(Achieved: **87.78%**)*
-* **Target Macro F1-Score:** $\ge 0.80$ *(Achieved: **0.8746**)*
-* **5-Fold Cross-Validation Accuracy:** **89.72% ($\pm 0.02$)**
-* **Inference Engine:** Calibrated Linear SVM + TF-IDF with XAI & Guardrails
+* **Project Name:** EduIntent AI & Student Announcement Intelligence System
+* **Domain:** Natural Language Processing (NLP) / Higher Education Support Automation
+* **Core Tasks Covered:**
+  * **Task 1:** AI Problem Design & Metric Formulation
+  * **Task 2:** Model Integration, API/Inference Engine & Real-time Web Application
+  * **Task 3:** Student Announcement Intelligence System (Categorization, Non-Hallucinatory Extraction, Rule-Based Priority & Evaluation Lab)
+* **Datasets:**
+  * 450 balanced hand-curated student academic questions across 9 categories (`student_queries.csv`)
+  * 175 balanced college announcements across 7 categories (`college_announcements.csv`)
+  * 30 hand-annotated test cases spanning 6 test typologies for systematic evaluation (`evaluation_announcements.json`)
+* **Task 1 & 2 Performance:** Calibrated Linear SVM achieving **87.78% Test Accuracy**, **0.8746 Macro F1**, **89.72% 5-Fold CV Accuracy**.
+* **Task 3 Performance:** TF-IDF + Logistic Regression Classifier achieving **86.67% Accuracy**, **0.8202 Macro F1**, **100% Deadline Extraction F1**, **94.7% Event Date Extraction F1**, **78.1% Guardrail Detection Rate**.
 
 ---
 
@@ -112,57 +116,131 @@ Evaluating why the model makes mistakes on specific test instances:
 
 ---
 
-## 6. Repository Folder Structure
+---
+
+## 6. Task 3: Student Announcement Intelligence System
+
+Task 3 extends the system from reactive student inquiry handling to **proactive campus announcement intelligence**. College announcements arrive via disparate channels (WhatsApp, email, bulletin boards, LMS) causing missed deadlines and academic confusion.
+
+### Key Capabilities & Architecture
+
+1. **Multi-Class Announcement Categorization:**
+   * 7 Core Classes: `Exams`, `Assignments`, `Events`, `Holidays`, `Placements`, `Fees`, `General`.
+   * Model: Calibrated Logistic Regression with sublinear TF-IDF word & n-gram features (Achieved **86.67% Test Accuracy**, **0.8202 Macro F1**).
+   * Edge-Case Safety: Vague or non-academic inputs route to `Unsupported / Low Confidence` guardrail.
+
+2. **Strictly Non-Hallucinatory Information Extraction:**
+   * **Deadlines:** Contextual regex engine anchored on deadline keywords (`before`, `by`, `deadline`, `submit by`, `last date`). Achieved **100% Precision & 100% Recall (F1: 100.0%)**.
+   * **Event Dates:** Distinct extraction for event start/conduct dates (`held on`, `commence`, `on`, `during`). Achieved **94.7% F1**.
+   * **Target Audience:** Automatic regex extraction of academic cohorts (e.g. `5th and 7th semester B.Tech`, `Final Year MCA`).
+   * **Required Actions:** Extraction of imperative action verbs (`collect`, `submit`, `register`, `pay`, `upload`). Achieved **88.2% F1**.
+
+3. **Transparent Rule-Based Priority Engine:**
+   * Rather than treating urgency as a black box, priority is determined by explicit, inspectable rules:
+     * **Urgent / High:** Impending deadlines, exam notices, fee dues, immediate action requirements.
+     * **Medium:** Standard event notices, scheduled submissions with ample time.
+     * **Low / Informational:** General circulars, holiday notices, elective orientations.
+   * Full explainability provided with every priority assignment (lists exact contributing factors).
+
+4. **Edge-Case & Anomaly Guardrails:**
+   * **Missing Deadline Anomaly:** Detects actionable announcements (e.g. fee payments, exam registrations) that omit a deadline date and alerts administrators.
+   * **Conflicting Dates Anomaly:** Detects logical anomalies where submission deadlines are scheduled *after* event conduct dates.
+   * **Ambiguity Detection:** Flags cross-domain overlap (e.g., campus placement drive with an associated coding test).
+   * **Input Sanitization & Validation:** Reject null, empty, symbols-only, or extreme character-count inputs with diagnostic feedback.
+
+5. **Evaluation Lab & Benchmarking:**
+   * 30 manually curated benchmark test cases spanning 6 test typologies:
+     * `normal` (7 cases)
+     * `missing_deadline` (5 cases)
+     * `conflicting_dates` (4 cases)
+     * `ambiguous` (5 cases)
+     * `out_of_domain` (4 cases)
+     * `malformed` (5 cases)
+   * Detailed reports generated: [`reports/evaluation_report.md`](file:///c:/Users/Dell/Desktop/SWYNEX-AI-Problem-Design/reports/evaluation_report.md) and [`reports/failure_case_analysis.md`](file:///c:/Users/Dell/Desktop/SWYNEX-AI-Problem-Design/reports/failure_case_analysis.md).
+
+---
+
+## 7. Repository Folder Structure
 
 ```
 SWYNEX-AI-Problem-Design/
-├── app.py                      # Interactive Streamlit Web Application (with XAI & Ambiguity UI)
-├── create_dataset.py           # Dataset generation script
-├── create_notebook.py          # Jupyter notebook generation script
-├── export_pdf_report.py        # PDF document report exporter
-├── requirements.txt            # Python dependencies
-├── README.md                   # Comprehensive Task 1 Project Documentation
+├── app.py                          # Unified Multi-Tab Streamlit Dashboard (Tasks 1, 2 & 3)
+├── create_dataset.py               # Task 1 & 2 student queries dataset generator
+├── create_announcement_dataset.py  # Task 3 announcement dataset generator
+├── create_evaluation_dataset.py    # Task 3 evaluation benchmark dataset generator
+├── run_evaluation.py               # Task 3 Evaluation Lab benchmark runner
+├── export_pdf_report.py            # PDF document report exporter
+├── requirements.txt                # Python dependencies
+├── README.md                       # Comprehensive Project Documentation
 ├── EduIntent_AI_Task1_Problem_Design.pdf # Published PDF submission document
+│
 ├── dataset/
-│   └── student_queries.csv     # 450 balanced student queries (9 categories)
+│   ├── student_queries.csv         # 450 balanced student queries (9 categories)
+│   ├── college_announcements.csv   # 175 college announcements (7 categories)
+│   └── evaluation_announcements.json # 30 hand-annotated benchmark evaluation samples
+│
 ├── models/
-│   ├── best_model.pkl          # Trained Calibrated Linear SVM model
-│   ├── tfidf_vectorizer.pkl    # Saved TF-IDF vectorizer
-│   └── model_metadata.json     # Saved metrics, categories & error analysis
-├── notebooks/
-│   └── EduIntent_AI_Problem_Design.ipynb # Executable Jupyter Notebook
+│   ├── best_model.pkl              # Trained Calibrated Linear SVM (Student Queries)
+│   ├── tfidf_vectorizer.pkl        # Saved TF-IDF vectorizer (Student Queries)
+│   ├── model_metadata.json         # Saved metrics & categories (Task 1 & 2)
+│   ├── announcement_classifier.pkl # Trained Classifier (Announcements)
+│   ├── announcement_tfidf.pkl      # Saved TF-IDF vectorizer (Announcements)
+│   └── announcement_metadata.json  # Saved metrics & categories (Task 3)
+│
 ├── reports/
-│   ├── confusion_matrix.png    # Saved Confusion Matrix plot
-│   └── model_comparison.png    # Saved Model Benchmark comparison plot
-├── results/
-│   ├── confusion_matrix.png    # Evaluation Confusion Matrix image
-│   ├── model_comparison.png    # Evaluation Benchmark chart
-│   └── evaluation.txt          # Exported evaluation summary text
-└── src/
-    ├── preprocessing.py        # Text cleaning and data splitting logic
-    ├── train.py                # Model training, evaluation & artifact exporter
-    ├── predict.py              # XAI, Ambiguity Detection & Inference Engine
-    └── model.py                # Model helper module
+│   ├── confusion_matrix.png        # Task 1 & 2 Confusion Matrix plot
+│   ├── model_comparison.png        # Task 1 & 2 Model Benchmark comparison plot
+│   ├── announcement_confusion_matrix.png # Task 3 Confusion Matrix
+│   ├── announcement_model_comparison.png # Task 3 Model comparison
+│   ├── evaluation_report.md        # Comprehensive Task 3 Evaluation Report
+│   ├── evaluation_results.json     # Machine-readable evaluation results
+│   └── failure_case_analysis.md    # Systematic failure mode & post-mortem analysis
+│
+├── src/
+│   ├── preprocessing.py            # Text cleaning and data splitting logic (Queries)
+│   ├── train.py                    # Model training, evaluation & artifact exporter (Queries)
+│   ├── predict.py                  # XAI, Ambiguity Detection & Inference Engine (Queries)
+│   ├── announcement_analyzer.py    # Task 3 Core Engine (Classification + Extraction + Guardrails)
+│   ├── announcement_model.py       # Task 3 Model training & artifact persistence
+│   ├── announcement_ui.py          # Task 3 Streamlit UI components
+│   ├── evaluation_lab.py           # Task 3 Benchmark evaluation suite & reporter
+│   └── validation.py               # Input sanitization and bounds checking module
+│
+└── tests/
+    ├── test_system.py              # Automated test suite for Task 1 & Task 2
+    └── test_announcement_analyzer.py # Automated test suite for Task 3 (30 tests)
 ```
 
 ---
 
-## 7. How to Run Locally (Single Command for Task 1 + Task 2)
+## 8. How to Run Locally
 
 ### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Train Models & Export Results (Optional — Pretrained Models Included)
+### 2. Run Automated Test Suites
+Run all 30 unit tests across Task 1, 2, and 3:
 ```bash
-python src/train.py
+python -m unittest discover tests
 ```
 
-### 3. Launch the Unified Web Application (Task 1 & Task 2)
+### 3. Run Task 3 Evaluation Lab Benchmark
+Execute benchmark evaluation and regenerate evaluation reports & failure case post-mortems:
+```bash
+python run_evaluation.py
+```
+
+### 4. Launch the Unified Web Application (Tasks 1, 2 & 3)
 ```bash
 streamlit run app.py
 ```
 > 🌐 **Opens in your browser at `http://localhost:8501`**  
-> This unified application contains both **Task 1** (Problem Design, Dataset & KPI Analytics) and **Task 2** (Live Trained ML Model Inference, Confidence Meter, Ambiguity Warnings, and Evaluation Metrics).
+> Access all features directly from the unified sidebar:
+> * 📢 **Smart Analyzer:** Real-time announcement parsing, date/entity extraction & priority estimation.
+> * 🧪 **Evaluation Lab:** Live metric explorer, confusion matrix & interactive failure-case inspector.
+> * 📋 **Example Library:** 1-click test scenarios across all edge-case typologies.
+> * 📖 **Task 3 Specs & Rules:** Transparent rule tables and engineering design documentation.
+> * 🏠 **Overview & Query Classifier:** Task 1 & Task 2 EduIntent student query system.
 

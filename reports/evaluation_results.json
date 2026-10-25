@@ -1,0 +1,1013 @@
+{
+  "total_tests": 30,
+  "passed_tests": 29,
+  "failed_tests": 5,
+  "classification": {
+    "accuracy": 0.8666666666666667,
+    "precision_macro": 0.8229166666666666,
+    "recall_macro": 0.8541666666666666,
+    "f1_macro": 0.8202380952380952,
+    "f1_weighted": 0.8641269841269842,
+    "classes": [
+      "Assignments",
+      "Events",
+      "Exams",
+      "Fees",
+      "General",
+      "Holidays",
+      "Placements",
+      "Unsupported / Low Confidence"
+    ],
+    "confusion_matrix": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9
+      ]
+    ]
+  },
+  "extraction": {
+    "deadlines": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 12,
+      "fp": 0,
+      "fn": 0
+    },
+    "event_dates": {
+      "precision": 0.9,
+      "recall": 1.0,
+      "f1": 0.9473684210526316,
+      "tp": 9,
+      "fp": 1,
+      "fn": 0
+    },
+    "actions": {
+      "precision": 1.0,
+      "recall": 0.7894736842105263,
+      "f1": 0.8823529411764706,
+      "tp": 15,
+      "fp": 0,
+      "fn": 4
+    },
+    "guardrail_detection_rate": 0.78125
+  },
+  "type_breakdown": {
+    "ambiguous": {
+      "total": 5,
+      "accuracy": 1.0,
+      "avg_confidence": 0.41190332397482476
+    },
+    "conflicting_dates": {
+      "total": 4,
+      "accuracy": 0.75,
+      "avg_confidence": 0.5178661370784848
+    },
+    "malformed": {
+      "total": 5,
+      "accuracy": 1.0,
+      "avg_confidence": 0.0
+    },
+    "missing_deadline": {
+      "total": 5,
+      "accuracy": 1.0,
+      "avg_confidence": 0.3783696895662684
+    },
+    "normal": {
+      "total": 7,
+      "accuracy": 1.0,
+      "avg_confidence": 0.5491684769505014
+    },
+    "out_of_domain": {
+      "total": 4,
+      "accuracy": 1.0,
+      "avg_confidence": 0.0
+    }
+  },
+  "failure_cases": [
+    {
+      "id": "AMBIG-01",
+      "test_type": "ambiguous",
+      "text": "Students with backlogs must pay the supplementary examination fee of Rs. 500 and submit the re-exam registration form before 18th November 2026.",
+      "expected_category": "Exams",
+      "predicted_category": "Fees",
+      "failure_reasons": [
+        "Missed expected anomaly flag: ['ambiguous_category']"
+      ],
+      "root_cause": "Vocabulary overlap between competing domains (e.g. 'Exams' and 'Fees'). TF-IDF weights were balanced across both sets of terms.",
+      "suggested_improvement": "Implement hierarchical multi-label classification or provide explicit secondary category routing in the UI."
+    },
+    {
+      "id": "AMBIG-03",
+      "test_type": "ambiguous",
+      "text": "Final year students presenting their Capstone Project Phase-1 must submit the project documentation file and clear all pending library dues before 28th November 2026.",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "failure_reasons": [
+        "Missed expected anomaly flag: ['ambiguous_category']"
+      ],
+      "root_cause": "Vocabulary overlap between competing domains (e.g. 'Assignments' and 'Assignments'). TF-IDF weights were balanced across both sets of terms.",
+      "suggested_improvement": "Implement hierarchical multi-label classification or provide explicit secondary category routing in the UI."
+    },
+    {
+      "id": "AMBIG-05",
+      "test_type": "ambiguous",
+      "text": "Due to Diwali holiday week, the submission of Operating Systems Assignment 4 and lab records has been postponed to 23rd November 2026.",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "failure_reasons": [
+        "Missed expected anomaly flag: ['ambiguous_category']"
+      ],
+      "root_cause": "Vocabulary overlap between competing domains (e.g. 'Assignments' and 'Assignments'). TF-IDF weights were balanced across both sets of terms.",
+      "suggested_improvement": "Implement hierarchical multi-label classification or provide explicit secondary category routing in the UI."
+    },
+    {
+      "id": "CONF-01",
+      "test_type": "conflicting_dates",
+      "text": "The Annual Tech Hackathon 'CodeStorm' will be held on 10th November 2026. However, team registrations on the event portal will open on 20th November 2026.",
+      "expected_category": "Events",
+      "predicted_category": "Events",
+      "failure_reasons": [
+        "Missed expected anomaly flag: ['conflicting_dates']"
+      ],
+      "root_cause": "Temporal contradiction detected between multiple dates or event sequences.",
+      "suggested_improvement": "Enforce chronological validation rules using a date graph validator to highlight specific inverted date pairs."
+    },
+    {
+      "id": "CONF-03",
+      "test_type": "conflicting_dates",
+      "text": "The college will observe a full public holiday for Diwali on 18th November 2026. All students must physically attend the Mid-Semester Examination in Block A on 18th November 2026.",
+      "expected_category": "Exams",
+      "predicted_category": "Holidays",
+      "failure_reasons": [
+        "Category mismatch: expected 'Exams', got 'Holidays'"
+      ],
+      "root_cause": "Temporal contradiction detected between multiple dates or event sequences.",
+      "suggested_improvement": "Enforce chronological validation rules using a date graph validator to highlight specific inverted date pairs."
+    }
+  ],
+  "detailed_results": [
+    {
+      "id": "NORM-01",
+      "test_type": "normal",
+      "text": "End Semester Theory Examinations for 5th and 7th semester B.Tech will commence from 1...",
+      "expected_category": "Exams",
+      "predicted_category": "Exams",
+      "is_category_correct": true,
+      "confidence": 0.3535767371160835,
+      "expected_deadlines": [
+        "10th December 2026"
+      ],
+      "actual_deadlines": [
+        "10th December 2026"
+      ],
+      "expected_event_dates": [
+        "15th December 2026"
+      ],
+      "actual_event_dates": [
+        "15th December 2026"
+      ],
+      "expected_action": "collected hall tickets",
+      "actual_action": "collected Hall tickets",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Urgent / High",
+      "warnings": []
+    },
+    {
+      "id": "NORM-02",
+      "test_type": "normal",
+      "text": "All 3rd year Computer Engineering students must submit Assignment 3 for Machine Learn...",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "is_category_correct": true,
+      "confidence": 0.5313291072915272,
+      "expected_deadlines": [
+        "12th November 2026"
+      ],
+      "actual_deadlines": [
+        "12th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "submit Assignment 3 for Machine Learning",
+      "actual_action": "submit Assignment 3 for Mach",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "NORM-03",
+      "test_type": "normal",
+      "text": "Annual National Technical Symposium 'TECHNOVATION 2026' will be organized on 18th Dec...",
+      "expected_category": "Events",
+      "predicted_category": "Events",
+      "is_category_correct": true,
+      "confidence": 0.5096497444259608,
+      "expected_deadlines": [
+        "5th December 2026"
+      ],
+      "actual_deadlines": [
+        "5th December 2026"
+      ],
+      "expected_event_dates": [
+        "18th December 2026"
+      ],
+      "actual_event_dates": [
+        "18th December 2026"
+      ],
+      "expected_action": "register on the fest portal",
+      "actual_action": "register",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "NORM-04",
+      "test_type": "normal",
+      "text": "The college and administrative offices will remain closed from 11th November 2026 to ...",
+      "expected_category": "Holidays",
+      "predicted_category": "Holidays",
+      "is_category_correct": true,
+      "confidence": 0.6283929289015303,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [
+        "11th November 2026 to 18th November 2026"
+      ],
+      "actual_event_dates": [
+        "11th November 2026",
+        "18th November 2026",
+        "19th November"
+      ],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Low / Informational",
+      "warnings": []
+    },
+    {
+      "id": "NORM-05",
+      "test_type": "normal",
+      "text": "Microsoft India campus placement drive for final year B.Tech CSE and IT students. Eli...",
+      "expected_category": "Placements",
+      "predicted_category": "Placements",
+      "is_category_correct": true,
+      "confidence": 0.628074744026483,
+      "expected_deadlines": [
+        "15th November 2026"
+      ],
+      "actual_deadlines": [
+        "15th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "upload updated resume",
+      "actual_action": "upload their upd",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "NORM-06",
+      "test_type": "normal",
+      "text": "The last date for payment of Even Semester Tuition Fees is 30th November 2026. A late...",
+      "expected_category": "Fees",
+      "predicted_category": "Fees",
+      "is_category_correct": true,
+      "confidence": 0.6471617878836201,
+      "expected_deadlines": [
+        "30th November 2026"
+      ],
+      "actual_deadlines": [
+        "30th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "payment of Even Semester Tuition Fees",
+      "actual_action": "Even Semester Tuiti",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Urgent / High",
+      "warnings": []
+    },
+    {
+      "id": "NORM-07",
+      "test_type": "normal",
+      "text": "All students must wear their official college identity cards around their neck while ...",
+      "expected_category": "General",
+      "predicted_category": "General",
+      "is_category_correct": true,
+      "confidence": 0.5459942890083047,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "wear official college identity cards",
+      "actual_action": "wear their official college identity cards around their neck while",
+      "expected_flags": [],
+      "actual_flags": [],
+      "priority": "Low / Informational",
+      "warnings": []
+    },
+    {
+      "id": "AMBIG-01",
+      "test_type": "ambiguous",
+      "text": "Students with backlogs must pay the supplementary examination fee of Rs. 500 and subm...",
+      "expected_category": "Exams",
+      "predicted_category": "Fees",
+      "is_category_correct": true,
+      "confidence": 0.44940261745908044,
+      "expected_deadlines": [
+        "18th November 2026"
+      ],
+      "actual_deadlines": [
+        "18th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "pay supplementary examination fee and submit form",
+      "actual_action": "pay the supplementary exam",
+      "expected_flags": [
+        "ambiguous_category"
+      ],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "AMBIG-02",
+      "test_type": "ambiguous",
+      "text": "The online placement screening examination for TCS recruitment will be conducted in t...",
+      "expected_category": "Placements",
+      "predicted_category": "Exams",
+      "is_category_correct": true,
+      "confidence": 0.33018716483602883,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [
+        "22nd November 2026"
+      ],
+      "actual_event_dates": [
+        "22nd November 2026"
+      ],
+      "expected_action": "attend placement screening examination",
+      "actual_action": null,
+      "expected_flags": [
+        "ambiguous_category"
+      ],
+      "actual_flags": [
+        "ambiguous_category"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Ambiguous announcement: Category overlaps between 'Exams' (33.0%) and 'Placements' (31.8%)."
+      ]
+    },
+    {
+      "id": "AMBIG-03",
+      "test_type": "ambiguous",
+      "text": "Final year students presenting their Capstone Project Phase-1 must submit the project...",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "is_category_correct": true,
+      "confidence": 0.32270621119916326,
+      "expected_deadlines": [
+        "28th November 2026"
+      ],
+      "actual_deadlines": [
+        "28th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "submit project documentation and clear dues",
+      "actual_action": "submit the project document",
+      "expected_flags": [
+        "ambiguous_category"
+      ],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "AMBIG-04",
+      "test_type": "ambiguous",
+      "text": "Hackathon winners will receive direct summer internship placement interviews and cert...",
+      "expected_category": "Events",
+      "predicted_category": "Placements",
+      "is_category_correct": true,
+      "confidence": 0.30475383343035084,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [
+        "5th December 2026"
+      ],
+      "actual_event_dates": [
+        "5th December 2026"
+      ],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "ambiguous_category"
+      ],
+      "actual_flags": [
+        "ambiguous_category"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Ambiguous announcement: Category overlaps between 'Placements' (30.5%) and 'Events' (22.1%)."
+      ]
+    },
+    {
+      "id": "AMBIG-05",
+      "test_type": "ambiguous",
+      "text": "Due to Diwali holiday week, the submission of Operating Systems Assignment 4 and lab ...",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "is_category_correct": true,
+      "confidence": 0.6524667929495007,
+      "expected_deadlines": [
+        "23rd November 2026"
+      ],
+      "actual_deadlines": [
+        "23rd November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "submission of Operating Systems Assignment 4",
+      "actual_action": "Operating Systems Assignment 4 and lab records has been postp",
+      "expected_flags": [
+        "ambiguous_category"
+      ],
+      "actual_flags": [],
+      "priority": "Medium",
+      "warnings": []
+    },
+    {
+      "id": "MISS-01",
+      "test_type": "missing_deadline",
+      "text": "All hostel students are urgently required to clear their outstanding mess fee arrears...",
+      "expected_category": "Fees",
+      "predicted_category": "Fees",
+      "is_category_correct": true,
+      "confidence": 0.35325274970663184,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "clear outstanding mess fee arrears",
+      "actual_action": "clear their outstand",
+      "expected_flags": [
+        "missing_deadline"
+      ],
+      "actual_flags": [
+        "missing_deadline"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Action is requested in the announcement, but NO specific deadline or date is provided."
+      ]
+    },
+    {
+      "id": "MISS-02",
+      "test_type": "missing_deadline",
+      "text": "All B.Tech students must submit their certified physics lab observation notebooks to ...",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "is_category_correct": true,
+      "confidence": 0.3436370243786415,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "submit certified physics lab observation notebooks",
+      "actual_action": "submit their certified physics lab observ",
+      "expected_flags": [
+        "missing_deadline"
+      ],
+      "actual_flags": [
+        "missing_deadline"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Action is requested in the announcement, but NO specific deadline or date is provided."
+      ]
+    },
+    {
+      "id": "MISS-03",
+      "test_type": "missing_deadline",
+      "text": "Collect your mid-term examination hall tickets from the departmental administrative c...",
+      "expected_category": "Exams",
+      "predicted_category": "Exams",
+      "is_category_correct": true,
+      "confidence": 0.3959441191990599,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "collect mid-term examination hall tickets",
+      "actual_action": "Collect your mid-term exam",
+      "expected_flags": [
+        "missing_deadline"
+      ],
+      "actual_flags": [
+        "missing_deadline"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Action is requested in the announcement, but NO specific deadline or date is provided."
+      ]
+    },
+    {
+      "id": "MISS-04",
+      "test_type": "missing_deadline",
+      "text": "Eligible candidates shortlisted for the Amazon campus interview must upload their upd...",
+      "expected_category": "Placements",
+      "predicted_category": "Placements",
+      "is_category_correct": true,
+      "confidence": 0.4667303101951869,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "upload updated resume and GitHub profile URL",
+      "actual_action": "upload their upd",
+      "expected_flags": [
+        "missing_deadline"
+      ],
+      "actual_flags": [
+        "missing_deadline"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Action is requested in the announcement, but NO specific deadline or date is provided."
+      ]
+    },
+    {
+      "id": "MISS-05",
+      "test_type": "missing_deadline",
+      "text": "Students who borrowed reference books from the department library are requested to re...",
+      "expected_category": "General",
+      "predicted_category": "General",
+      "is_category_correct": true,
+      "confidence": 0.33228424435182174,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "return all books to librarian",
+      "actual_action": "return all books to the librarian",
+      "expected_flags": [
+        "missing_deadline"
+      ],
+      "actual_flags": [
+        "missing_deadline"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Action is requested in the announcement, but NO specific deadline or date is provided."
+      ]
+    },
+    {
+      "id": "CONF-01",
+      "test_type": "conflicting_dates",
+      "text": "The Annual Tech Hackathon 'CodeStorm' will be held on 10th November 2026. However, te...",
+      "expected_category": "Events",
+      "predicted_category": "Events",
+      "is_category_correct": true,
+      "confidence": 0.3434606178799101,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [
+        "10th November 2026",
+        "20th November 2026"
+      ],
+      "actual_event_dates": [
+        "10th November 2026",
+        "20th November 2026"
+      ],
+      "expected_action": "team registrations",
+      "actual_action": null,
+      "expected_flags": [
+        "conflicting_dates"
+      ],
+      "actual_flags": [],
+      "priority": "Low / Informational",
+      "warnings": []
+    },
+    {
+      "id": "CONF-02",
+      "test_type": "conflicting_dates",
+      "text": "Assignment 2 submission deadline is 25th November 2026. Late submissions with 10% pen...",
+      "expected_category": "Assignments",
+      "predicted_category": "Assignments",
+      "is_category_correct": true,
+      "confidence": 0.6345027174765977,
+      "expected_deadlines": [
+        "25th November 2026",
+        "15th November 2026"
+      ],
+      "actual_deadlines": [
+        "25th November 2026",
+        "15th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "Assignment 2 submission",
+      "actual_action": null,
+      "expected_flags": [
+        "conflicting_dates"
+      ],
+      "actual_flags": [
+        "conflicting_dates"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Inconsistent dates detected: Late submission cutoff occurs earlier than the primary due date."
+      ]
+    },
+    {
+      "id": "CONF-03",
+      "test_type": "conflicting_dates",
+      "text": "The college will observe a full public holiday for Diwali on 18th November 2026. All ...",
+      "expected_category": "Exams",
+      "predicted_category": "Holidays",
+      "is_category_correct": false,
+      "confidence": 0.3056193297888814,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [
+        "18th November 2026"
+      ],
+      "actual_event_dates": [
+        "18th November 2026"
+      ],
+      "expected_action": "physically attend Mid-Semester Examination",
+      "actual_action": "physically",
+      "expected_flags": [
+        "conflicting_dates",
+        "ambiguous_category"
+      ],
+      "actual_flags": [
+        "conflicting_dates",
+        "ambiguous_category"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Institutional conflict detected: Examination scheduled on a declared full campus holiday.",
+        "Ambiguous announcement: Category overlaps between 'Holidays' (30.6%) and 'Exams' (22.2%)."
+      ]
+    },
+    {
+      "id": "CONF-04",
+      "test_type": "conflicting_dates",
+      "text": "Tuition fee payment last date without fine is 30th November 2026. Late fee charges be...",
+      "expected_category": "Fees",
+      "predicted_category": "Fees",
+      "is_category_correct": true,
+      "confidence": 0.7878818831685501,
+      "expected_deadlines": [
+        "30th November 2026",
+        "20th November 2026"
+      ],
+      "actual_deadlines": [
+        "30th November 2026",
+        "20th November 2026"
+      ],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": "Tuition fee payment",
+      "actual_action": null,
+      "expected_flags": [
+        "conflicting_dates"
+      ],
+      "actual_flags": [
+        "conflicting_dates"
+      ],
+      "priority": "Urgent / High",
+      "warnings": [
+        "Inconsistent dates detected: Late submission cutoff occurs earlier than the primary due date."
+      ]
+    },
+    {
+      "id": "OOD-01",
+      "test_type": "out_of_domain",
+      "text": "To bake a classic chocolate fudge cake, preheat the oven to 350 degrees Fahrenheit. M...",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "actual_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "The provided text does not match any recognized college announcement vocabulary."
+      ]
+    },
+    {
+      "id": "OOD-02",
+      "test_type": "out_of_domain",
+      "text": "The stock index dropped 350 points today as inflation worries weighed heavily on tech...",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "actual_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "The provided text does not match any recognized college announcement vocabulary."
+      ]
+    },
+    {
+      "id": "OOD-03",
+      "test_type": "out_of_domain",
+      "text": "Hey bro what are you doing tonight? Let us go to the mall and watch the new Marvel mo...",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "actual_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "The provided text does not match any recognized college announcement vocabulary."
+      ]
+    },
+    {
+      "id": "OOD-04",
+      "test_type": "out_of_domain",
+      "text": "In yesterday's football match, the striker scored a hat-trick in the 85th minute, sec...",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "actual_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "The provided text does not match any recognized college announcement vocabulary."
+      ]
+    },
+    {
+      "id": "MALF-01",
+      "test_type": "malformed",
+      "text": "",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "malformed_input",
+        "empty_text"
+      ],
+      "actual_flags": [
+        "malformed_input",
+        "empty_text"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Input validation warning: Input is empty. Please enter an announcement text to analyze."
+      ]
+    },
+    {
+      "id": "MALF-02",
+      "test_type": "malformed",
+      "text": "    \t \n   ",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "malformed_input",
+        "whitespace_only"
+      ],
+      "actual_flags": [
+        "malformed_input",
+        "empty_text"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Input validation warning: Input is empty. Please enter an announcement text to analyze."
+      ]
+    },
+    {
+      "id": "MALF-03",
+      "test_type": "malformed",
+      "text": "!@#$%^&*()_+{}|:\"<>?~`-=[]\\;',./",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "malformed_input",
+        "symbols_only"
+      ],
+      "actual_flags": [
+        "malformed_input"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Input validation warning: Input contains only symbols or punctuation with no alphanumeric words."
+      ]
+    },
+    {
+      "id": "MALF-04",
+      "test_type": "malformed",
+      "text": "A",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "malformed_input",
+        "too_short"
+      ],
+      "actual_flags": [
+        "malformed_input"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "Input validation warning: Input is too short (minimum 3 characters required)."
+      ]
+    },
+    {
+      "id": "MALF-05",
+      "test_type": "malformed",
+      "text": "urgent notice urgent notice urgent notice urgent notice urgent notice",
+      "expected_category": "Unsupported / Low Confidence",
+      "predicted_category": "Unsupported / Low Confidence",
+      "is_category_correct": true,
+      "confidence": 0.0,
+      "expected_deadlines": [],
+      "actual_deadlines": [],
+      "expected_event_dates": [],
+      "actual_event_dates": [],
+      "expected_action": null,
+      "actual_action": null,
+      "expected_flags": [
+        "low_confidence"
+      ],
+      "actual_flags": [
+        "out_of_domain",
+        "low_confidence"
+      ],
+      "priority": "Low / Informational",
+      "warnings": [
+        "The provided text does not match any recognized college announcement vocabulary."
+      ]
+    }
+  ]
+}

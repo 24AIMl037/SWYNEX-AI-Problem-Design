@@ -31,22 +31,39 @@ import plotly.express as px
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, "src"))
 from predict import EduIntentPredictor
+from announcement_analyzer import SmartAnnouncementAnalyzer
+from evaluation_lab import EvaluationLab
+import importlib
+import announcement_ui
+try:
+    importlib.reload(announcement_ui)
+except Exception:
+    pass
+from announcement_ui import (
+    render_smart_analyzer,
+    render_evaluation_lab,
+    render_example_library,
+    render_task3_documentation
+)
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="EduIntent AI — SWYNEX Task 1 & Task 2",
-    page_icon="🎓",
+    page_title="Student Announcement Intelligence System — SWYNEX Task 3",
+    page_icon="📢",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ─── Session State Init ───────────────────────────────────────────────────────
 for key, default in {
-    "history":      [],
-    "dark":         True,
-    "active_nav":   "🏠 Overview",
-    "active_q":     "Why am I getting a KeyError while accessing a Pandas column?",
-    "session_start": datetime.datetime.now().strftime("%H:%M:%S"),
+    "history":             [],
+    "dark":                True,
+    "active_nav":          "📢 Smart Analyzer",
+    "announcement_input":  "End Semester Theory Examinations for 5th and 7th semester B.Tech will commence from 15th December 2026. Hall tickets must be collected before 10th December 2026.",
+    "announcement_result": None,
+    "eval_results":        None,
+    "active_q":            "Why am I getting a KeyError while accessing a Pandas column?",
+    "session_start":       datetime.datetime.now().strftime("%H:%M:%S"),
 }.items():
     if key not in st.session_state:
         st.session_state[key] = default
@@ -250,16 +267,33 @@ def get_metadata():
     with open(os.path.join(BASE_DIR, "models", "model_metadata.json"), "r") as f:
         return json.load(f)
 
+@st.cache_resource(show_spinner=False)
+def get_announcement_analyzer():
+    return SmartAnnouncementAnalyzer()
+
 @st.cache_data(show_spinner=False)
+
 def get_dataset():
-    return pd.read_csv(os.path.join(BASE_DIR, "dataset", "student_queries.csv"))
+    """Load the synthetic college‑announcement CSV used for example suggestions.
+    Returns a pandas DataFrame."""
+    csv_path = os.path.join(BASE_DIR, "dataset", "college_announcements.csv")
+    if not os.path.exists(csv_path):
+        st.error("⚠️ Dataset not found. Run `python create_announcement_dataset.py` to generate the CSV first.")
+        st.stop()
+    return pd.read_csv(csv_path)
+
+@st.cache_resource(show_spinner=False)
+def get_evaluation_lab():
+    return EvaluationLab()
 
 try:
-    predictor = get_predictor()
-    meta      = get_metadata()
-    dataset   = get_dataset()
+    predictor    = get_predictor()
+    meta         = get_metadata()
+    dataset      = get_dataset()
+    ann_analyzer = get_announcement_analyzer()
+    eval_lab     = get_evaluation_lab()
 except Exception as e:
-    st.error(f"❌ Error loading model artifacts: {e}. Please run `python src/train.py` first.")
+    st.error(f"❌ Error loading model artifacts: {e}. Please ensure models are trained.")
     st.stop()
 
 SVM_ACC = meta["results_summary"]["Linear SVM"]["Accuracy"]
@@ -408,17 +442,21 @@ with st.sidebar:
     <div style="display:flex;align-items:center;gap:12px;padding:6px 0 22px 0;">
         <div style="width:44px;height:44px;background:linear-gradient(135deg,#6366f1,#4f46e5);
             border-radius:12px;display:flex;align-items:center;justify-content:center;
-            color:#fff;font-weight:900;font-size:22px;box-shadow:0 4px 14px rgba(99,102,241,.4);">E</div>
+            color:#fff;font-weight:900;font-size:22px;box-shadow:0 4px 14px rgba(99,102,241,.4);">📢</div>
         <div>
-            <div style="font-size:1.05rem;font-weight:800;color:{TEXT};">EduIntent AI</div>
-            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · Task 1 & Task 2</div>
+            <div style="font-size:1.02rem;font-weight:800;color:{TEXT};">Announcement AI</div>
+            <div style="font-size:0.75rem;color:{MUTED};font-weight:500;">SWYNEX · Tasks 1, 2 & 3</div>
         </div>
     </div>
     <div style="font-size:0.7rem;font-weight:800;letter-spacing:1.5px;color:#475569;
-        text-transform:uppercase;margin-bottom:10px;padding-left:4px;">WORKSPACE</div>
+        text-transform:uppercase;margin-bottom:10px;padding-left:4px;">NAVIGATION</div>
     """, unsafe_allow_html=True)
 
     nav_items = [
+        "📢 Smart Analyzer",
+        "🧪 Evaluation Lab",
+        "📋 Example Library",
+        "📖 Task 3 Specs & Rules",
         "🏠 Overview",
         "✦ Query Classifier",
         "📊 Analytics",
@@ -429,6 +467,8 @@ with st.sidebar:
         "📚 Documentation",
         "✅ Submission Checklist",
     ]
+    if st.session_state["active_nav"] not in nav_items:
+        st.session_state["active_nav"] = "📢 Smart Analyzer"
     nav = st.radio("nav", nav_items, index=nav_items.index(st.session_state["active_nav"]))
     st.session_state["active_nav"] = nav
 
@@ -473,9 +513,36 @@ with tb3:
 st.markdown(f'<hr style="border:none;border-top:1px solid {BORDER};margin:0 0 22px 0;">', unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# 📢  TASK 3: SMART ANNOUNCEMENT ANALYZER & EVALUATION LAB
+# ═══════════════════════════════════════════════════════════════════════════════
+if nav == "📢 Smart Analyzer":
+    try:
+        render_smart_analyzer(ann_analyzer)
+    except TypeError:
+        render_smart_analyzer(ann_analyzer, D, BG, CARD, CARD2, TEXT, MUTED, BORDER, INDIGO, EMERALD, AMBER, ROSE, SKY)
+
+elif nav == "🧪 Evaluation Lab":
+    try:
+        render_evaluation_lab(eval_lab)
+    except TypeError:
+        render_evaluation_lab(eval_lab, ann_analyzer, D, BG, CARD, CARD2, TEXT, MUTED, BORDER, INDIGO, EMERALD, AMBER, ROSE, SKY)
+
+elif nav == "📋 Example Library":
+    try:
+        render_example_library()
+    except TypeError:
+        render_example_library(ann_analyzer, D, BG, CARD, CARD2, TEXT, MUTED, BORDER, INDIGO, EMERALD, AMBER, ROSE, SKY)
+
+elif nav == "📖 Task 3 Specs & Rules":
+    try:
+        render_task3_documentation()
+    except TypeError:
+        render_task3_documentation(D, BG, CARD, CARD2, TEXT, MUTED, BORDER, INDIGO, EMERALD, AMBER, ROSE, SKY)
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # ❶  OVERVIEW
 # ═══════════════════════════════════════════════════════════════════════════════
-if nav == "🏠 Overview":
+elif nav == "🏠 Overview":
     col_left, col_right = st.columns([2.4, 1])
 
     with col_left:
